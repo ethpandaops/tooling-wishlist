@@ -8,7 +8,6 @@ and run testnets.
 ## Wishlist:
 - Lightweight beaconchain explorer
 - Combined forkmonitor
-- Live Forkchoice visualizer
 - Updated Testnet homepage
 - Faucet with configurable sybil mechanisms
 - Wrapper for hive to launch local testnets
