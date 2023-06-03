@@ -7,7 +7,7 @@ transactions and blocks - but focussed on exploring the beaconchain.
 
 We often need to use a beaconchain explorer on testnets to allow us to gain some observability into the network, we are usually
 just looking for high level metrics into the the network and do not care about deeper indexing or validator performance metrics. This
-means the existing gold standard of [beaconcha.in](beaconcha.in) is simply too heavy for most small testnets. We hope to see
+means the existing gold standard of [beaconcha.in](https://beaconcha.in/) is simply too heavy for most small testnets. We hope to see
 a more lightweight version with stripped down features. 
 
 The lightweight explorer could proxy most queries to the client and just store required indexed data in its own database. This 
