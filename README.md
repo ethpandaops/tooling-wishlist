@@ -11,3 +11,4 @@ and run testnets.
 - Updated Testnet homepage
 - Faucet with configurable sybil mechanisms
 - Wrapper for hive to launch local testnets
+- Chaos testing Ethereum
