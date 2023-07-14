@@ -1,5 +1,7 @@
 # Faucet with configurable sybil mechanisms
 
+Note: https://github.com/pk910/PoWFaucet now does most of this!
+
 ## Introduction
 We deploy faucets regularly on every testnet, however, we have different sybil requirements based on the publicity of the
 network. The current approach involves spinning up different faucets based on the need of the network, but it would be easier
