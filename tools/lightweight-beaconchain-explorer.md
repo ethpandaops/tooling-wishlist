@@ -1,5 +1,5 @@
 # Lightweight Beaconchain Explorer
-
+Note: this is actively being worked on, reach out to know more
 ## Introduction:
 A Beaconchain explorer is a tool that allows users to view and interact with the data on the Ethereum Beacon Chain. 
 It is similar to a blockchain explorer, which allows users to view data on a blockchain such as the current state of 
