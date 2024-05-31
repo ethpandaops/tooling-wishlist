@@ -6,9 +6,4 @@ This repo is meant to hold ideas for tooling that we would love to see someday. 
 and run testnets. 
 
 ## Wishlist:
-- Lightweight beaconchain explorer (being worked on)
-- Combined forkmonitor
-- Updated Testnet homepage
-- Faucet with configurable sybil mechanisms (done)
-- Wrapper for hive to launch local testnets
-- Chaos testing Ethereum (being worked on)
+Please refer to the open-ideas folder to see the wishlist
