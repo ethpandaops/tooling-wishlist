@@ -1,5 +1,7 @@
 # Wrapper for Hive to run local testnets
 
+## Deprecated
+We chose to go ahead with the kurtosis approach of testnets rather than relying on hive for this layer of the testing stack.
 ## Introduction:
 Hive is a testing framework that allows us to test multiple parts of the EL/CL stack in a single environment. 
 It is an integral testing framework established to assure compliance of various Ethereum client implementations with specification. 
