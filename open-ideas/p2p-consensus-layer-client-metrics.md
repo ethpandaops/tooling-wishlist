@@ -104,7 +104,7 @@ Each consensus layer client needs to be looked at and instrumented. This may nee
 
 ## Current client status
 
-Had a quick look at the metrics exported by each client and created the following matrix. Might be errors.
+Had a quick look at the metrics exported by each client and created the following matrix. Might be errors, **hover over the cells to see the alt text**.
 
 | Metric | Nimbus | Lodestar | Lighthouse | Prysm | Teku |
 |--------|--------|----------|------------|-------|------|
