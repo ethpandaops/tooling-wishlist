@@ -3,6 +3,8 @@
 ## Introduction
 A tool to artificially grow the state of Ethereum devets/testnets in a realistic way by simulating mainnet-like transaction patterns. This helps with benchmarking, gas limit discussions, and load testing by creating real-world I/O patterns and state access complexity.
 
+**NOTE: Consider integration into [spamoor](https://github.com/ethpandaops/spamoor) which already contains a lot of the base logic.**
+
 ## Features
 - Simulate mainnet-like transaction patterns:
   - DeFi interactions (pools, trades, lending)
