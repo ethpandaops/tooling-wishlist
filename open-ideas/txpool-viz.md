@@ -1,4 +1,5 @@
 # Mempool Visualizer
+Note: This task is currently being worked on, please reach out for more details.
 
 ## Introduction:
 A tool to visualize and compare transaction pools across different Ethereum execution clients. This helps debug transaction propagation issues, analyze mempool behaviors during attacks, and understand differences in transaction acceptance policies between clients.
