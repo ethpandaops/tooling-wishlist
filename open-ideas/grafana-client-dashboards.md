@@ -73,6 +73,10 @@ Each EL/CL client exposes its own Prometheus metrics endpoint:
 - Prometheus scrape configs for all client metrics endpoints
 - Optional ethereum-metrics-exporter sidecar deployment
 
+## Depends on
+- [ethpandaops/ethereum-package](https://github.com/ethpandaops/ethereum-package): Target repository for dashboard integration
+- [ethpandaops/ethereum-metrics-exporter](https://github.com/ethpandaops/ethereum-metrics-exporter): Alternative metrics source for standardized cross-client metrics
+
 ## Use cases
 - Debugging performance issues during devnet testing
 - Comparing client implementations under load
