@@ -1,4 +1,6 @@
 # State Growth Spammer
+## Underway
+The stateless team at the EF is currently building a lot of the tooling related to this and adding it to spamoor!
 
 ## Introduction
 A tool to artificially grow the state of Ethereum devets/testnets in a realistic way by simulating mainnet-like transaction patterns. This helps with benchmarking, gas limit discussions, and load testing by creating real-world I/O patterns and state access complexity.
