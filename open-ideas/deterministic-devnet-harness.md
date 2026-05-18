@@ -2,9 +2,9 @@
 
 ## Introduction
 
-A lightweight, [Antithesis](https://antithesis.com/)-inspired harness for running Ethereum devnets where **the chain is deterministic**: identical genesis + identical inputs always produce identical blocks, state roots, and fork-choice decisions, slot for slot. The goal is reproducible devnet runs, replayable incidents, and chaos testing with rewind — without the cost or complexity of a bit-deterministic hypervisor.
+A lightweight harness for running Ethereum devnets where **the chain is deterministic**: identical genesis + identical inputs always produce identical blocks, state roots, and fork-choice decisions, slot for slot. The goal is reproducible devnet runs, replayable incidents, and chaos testing with rewind — without the cost or complexity of a bit-deterministic hypervisor.
 
-This is explicitly *not* trying to be Antithesis. Antithesis aims for bit-deterministic execution at the hypervisor level — every syscall, every thread interleaving, every malloc. That's overkill for what we actually need. Ethereum's state transition function is already deterministic; what introduces non-determinism in a running devnet is wall-clock time, network ordering, and a few sources of OS entropy. Control those, and the chain is reproducible.
+Bit-deterministic execution at the hypervisor level — every syscall, every thread interleaving, every malloc — is overkill for what we actually need. Ethereum's state transition function is already deterministic; what introduces non-determinism in a running devnet is wall-clock time, network ordering, and a few sources of OS entropy. Control those, and the chain is reproducible.
 
 Built on top of [ethpandaops/ethereum-package](https://github.com/ethpandaops/ethereum-package) so devnets remain spun up the way the team already runs them.
 
@@ -146,7 +146,6 @@ What's explicitly cut from v1:
 - [ethpandaops/assertoor](https://github.com/ethpandaops/assertoor) — natural consumer for the replay engine
 - [ethpandaops/forky](https://github.com/ethpandaops/forky), [ethpandaops/tracoor](https://github.com/ethpandaops/tracoor) — complementary observability
 - [Attacknet](https://ethpandaops.io/posts/attacknet-introduction) — chaos testing today, but without rewind
-- [Antithesis](https://antithesis.com/) — the inspiration, but at a different level of the stack
 - [`libfaketime`](https://github.com/wolfcw/libfaketime) — prior art for clock interposition
 - FoundationDB's [Joshua](https://apple.github.io/foundationdb/testing.html) — the deterministic simulation approach this borrows from in spirit
 
