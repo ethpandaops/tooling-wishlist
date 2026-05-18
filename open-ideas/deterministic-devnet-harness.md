@@ -56,15 +56,27 @@ Replace direct peer connections with an in-the-middle relay that proxies all lib
 - **Record**: clients talk normally, every message captured into a trace file
 - **Replay**: trace file is the source of truth; the mediator re-injects messages at the recorded virtual times and refuses to forward anything not in the trace
 
-The mediator also exposes policies for chaos testing:
+The mediator handles **L7 protocol-level** concerns the disruptor layer (see below) can't reach:
 
 - Pin message order deterministically by seed
-- Delay topic X by N slots
-- Drop messages matching a predicate
-- Partition the peer set into groups
+- Delay specific gossip topics by N slots
+- Drop messages matching a content predicate
 - Inject duplicate or malformed messages
+- Swap proposers or replay attester votes from the trace
 
 This component is the centerpiece. It must look like a well-behaved peer to all five CL clients simultaneously so it doesn't get score-down'd out of the gossip mesh.
+
+### 2a. Network disruption (delegated to disruptoor)
+
+L3/L4 chaos — partitions, latency, jitter, packet loss, bandwidth caps — is **not** reimplemented here. [`disruptoor`](https://github.com/ethpandaops/disruptoor) already does this and is wired into ethereum-package via [PR #1398](https://github.com/ethpandaops/ethereum-package/pull/1398) as an `additional_services` option.
+
+What the harness adds on top of disruptoor:
+
+- **Virtual-time scheduling** — disruptoor commands are issued at virtual times, not wall times, so a partition at virtual slot 1000 lands at the same chain state on every replay
+- **Trace recording** — every disruptoor state mutation (apply partition, apply shaping, clear) is captured into the same trace as p2p messages
+- **Replay** — on replay, the harness re-applies recorded disruptoor commands at the recorded virtual times
+
+Net effect: disruptoor owns the chaos *primitives*, the harness owns *when and in what order* those primitives are applied so they survive a replay.
 
 ### 3. State observer
 
@@ -109,17 +121,24 @@ harness:
     db_path: "./run-001.duckdb"
     snapshot_every_slot: true
 
-# Example chaos policy
-policies:
+# Example mediator policy (L7 — protocol-aware)
+mediator_policies:
   - kind: delay
     topic: "beacon_block"
     selector: { slot_mod: 32 }
     delay_ms: 3000
-  - kind: partition
-    groups:
-      - ["lighthouse-1", "lighthouse-2", "geth-1", "geth-2"]
-      - ["prysm-1", "teku-1", "nethermind-1", "besu-1"]
-    duration_slots: 5
+
+# Example disruptoor schedule (L3/L4 — network primitives, virtual-time scheduled)
+disruptoor_schedule:
+  - at_virtual_slot: 1000
+    apply:
+      partitions:
+        - groups:
+            - participants: [1, 2]
+            - participants: [3, 4]
+          components: [el, cl]
+  - at_virtual_slot: 1005
+    clear: partitions
 ```
 
 ## Scope notes
@@ -130,7 +149,7 @@ This is honestly 2–3 months of focused work, and the scope creep risks are rea
 
 **Phase 2 (month 2):** Network mediator in record-only mode. State observer. Confirm a recorded run replays deterministically.
 
-**Phase 3 (month 3):** Replay mode, fork/mutate, chaos policies, bisection. CLI + Jupyter for analysis.
+**Phase 3 (month 3):** Replay mode, fork/mutate, mediator policies, virtual-time scheduling of disruptoor commands with trace recording, bisection. CLI + Jupyter for analysis.
 
 What's explicitly cut from v1:
 
@@ -142,6 +161,7 @@ What's explicitly cut from v1:
 ## Depends on / related work
 
 - [ethpandaops/ethereum-package](https://github.com/ethpandaops/ethereum-package) — the substrate this plugs into
+- [ethpandaops/disruptoor](https://github.com/ethpandaops/disruptoor) — L3/L4 chaos primitives (partitions, shaping). Already wired into ethereum-package via [PR #1398](https://github.com/ethpandaops/ethereum-package/pull/1398). The harness layers virtual-time scheduling and trace recording on top of it.
 - [ethpandaops/hermes](https://github.com/ethpandaops/hermes) — already a libp2p listener/tracer, likely the seed for the network mediator
 - [ethpandaops/assertoor](https://github.com/ethpandaops/assertoor) — natural consumer for the replay engine
 - [ethpandaops/forky](https://github.com/ethpandaops/forky), [ethpandaops/tracoor](https://github.com/ethpandaops/tracoor) — complementary observability
